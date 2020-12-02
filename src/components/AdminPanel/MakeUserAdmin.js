@@ -14,7 +14,7 @@ const MakeUserAdmin = () => {
     }
 
     const sendFormToDB = () => {
-        const request = axios.post('/api/items/all', name)
+        const request = axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/items/all', name)
                             .then(response => response.data)
             return request
     }

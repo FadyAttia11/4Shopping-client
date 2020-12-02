@@ -48,7 +48,7 @@ const EditExistingProduct = () => {
     }
 
     const loginUser = (datatoSubmit) => {
-        const request = axios.patch(`/api/items/edit/${name}`, bodyFormData)
+        const request = axios.patch(`https://fadyattia-4shopping-server.herokuapp.com/api/items/edit/${name}`, bodyFormData)
                         .then(response => response.data)
         return request
     }

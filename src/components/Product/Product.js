@@ -128,13 +128,13 @@ const Product = (props) => {
     }, [setProductSizes])
 
     const getCurrentUser = () => {
-        const request = axios.get('/api/users/me', { headers })
+        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/me', { headers })
                             .then(response => response.data)
         return request
     }
 
     const getProductFromDB = () => {
-        const request = axios.get(`/api/items/${productId}`)
+        const request = axios.get(`https://fadyattia-4shopping-server.herokuapp.com/api/items/${productId}`)
                             .then(response => response.data)
             return request
     }
@@ -231,7 +231,7 @@ const Product = (props) => {
     }
 
     const addNewToCart = () => {
-        const request = axios.post('/api/cart/addtocart', dataForNewToCart, { headers })
+        const request = axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/cart/addtocart', dataForNewToCart, { headers })
                             .then(response => response.data)
         return request
     }

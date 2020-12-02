@@ -20,7 +20,7 @@ const Offer = () => {
     }, [offer])
 
     const fetchOfferFromDB = () => {
-        const request = axios.get('/api/exclusive')
+        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/exclusive')
                             .then(response => response.data)
             return request
     }

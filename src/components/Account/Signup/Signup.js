@@ -24,7 +24,7 @@ const Signup = () => {
         }
 
         try {
-            await axios.post('/api/users', dataToSubmit)
+            await axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/users', dataToSubmit)
             setMsg('You Have Successfully Created An Account!')
             // setBoolean(true)
             setName('')

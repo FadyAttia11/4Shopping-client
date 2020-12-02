@@ -36,7 +36,7 @@ const Profile = () => {
 
 
     const getUserFromDB = () => {
-        const request = axios.get('/api/users/me', { headers })
+        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/me', { headers })
                             .then(response => response.data)
             return request
     }
@@ -52,7 +52,7 @@ const Profile = () => {
     }
 
     const logoutUser = () => {
-        const request = axios.get('http://localhost:3000/api/users/logout', { headers })
+        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/logout', { headers })
                         .then(response => response.data)
         return request
     }
@@ -87,7 +87,7 @@ const Profile = () => {
     const sendFormToDB = async () => {
         await axios({
             method: 'post',
-            url: '/api/users/me/avatar',
+            url: 'https://fadyattia-4shopping-server.herokuapp.com/api/users/me/avatar',
             data: bodyFormData,
             headers: {
                 'Content-Type': 'multipart/form-data' ,

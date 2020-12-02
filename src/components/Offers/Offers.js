@@ -51,13 +51,13 @@ const Offers = (props) => {
     const getItemFromDB = () => {
         const search = props.location.search
         const params = (new URLSearchParams(search))
-        const request = axios.get(`/api/items/offers?page=${params.get('page')}`)
+        const request = axios.get(`https://fadyattia-4shopping-server.herokuapp.com/api/items/offers?page=${params.get('page')}`)
                             .then(response => response.data)
             return request
     }
 
     const getCountFromDB = () => {
-        const request = axios.get("/api/items/offers/count")
+        const request = axios.get("https://fadyattia-4shopping-server.herokuapp.com/api/items/offers/count")
                             .then(response => response.data)
         return request
     }

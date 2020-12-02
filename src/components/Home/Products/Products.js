@@ -30,13 +30,13 @@ const Products = () => {
 
 
     const getAllItemsFromDB = () => {
-        const request = axios.get('/api/items')
+        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items')
                             .then(response => response.data)
             return request
     }
 
     const getAllFromDB = () => {
-        const request = axios.get('/api/items/all')
+        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items/all')
                             .then(response => response.data)
             return request
     }

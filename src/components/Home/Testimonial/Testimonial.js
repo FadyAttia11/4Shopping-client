@@ -21,7 +21,7 @@ const Testimonial = () => {
     }, [testimonials])
 
     const getTestimonialsFromDB = () => {
-        const request = axios.get('/api/testimonials/all')
+        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/testimonials/all')
                             .then(response => response.data)
             return request
     }

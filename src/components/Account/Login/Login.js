@@ -59,7 +59,7 @@ const Login = (props) => {
     const isFormValid = () => email && password
 
     const loginUser = (dataToSubmit) => {
-        const request = axios.post('/api/users/login', dataToSubmit)
+        const request = axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/users/login', dataToSubmit)
                         .then(response => response.data)
         return request
     }

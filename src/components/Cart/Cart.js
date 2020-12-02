@@ -18,7 +18,7 @@ const Cart = () => {
 
     useEffect(() => {
         async function getCurrentUser() {
-            const user = await axios.get('/api/users/me', { headers })
+            const user = await axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/me', { headers })
                                 .then(response => response.data)
             setUserId(user._id)
         }
@@ -29,7 +29,7 @@ const Cart = () => {
     useEffect(() => {
         if(userId !== '') {
             async function getCart() {
-                const cart = await axios.get(`/api/cart/getusercart/${userId}`, { headers })
+                const cart = await axios.get(`https://fadyattia-4shopping-server.herokuapp.com/api/cart/getusercart/${userId}`, { headers })
                                     .then(response => response.data)
                 setCart(cart)
             }
@@ -51,7 +51,7 @@ const Cart = () => {
         setCart(cart.filter((cartElement) => cartElement.productId !== product.productId))
 
         const currentCartElement = cart.filter((cartElement) => cartElement.productId === product.productId)
-        await axios.delete(`/api/cart/${currentCartElement[0]._id}`, { headers })
+        await axios.delete(`https://fadyattia-4shopping-server.herokuapp.com/api/cart/${currentCartElement[0]._id}`, { headers })
                 .then(response => response.data)
         
     }
@@ -65,7 +65,7 @@ const Cart = () => {
         }))
 
         //patch the cart by the cart _id (unique) 
-        const item = await axios.patch(`/api/cart/${product._id}`, { quantity, totalPrice: quantity * product.unitPrice }, { headers })
+        const item = await axios.patch(`https://fadyattia-4shopping-server.herokuapp.com/api/cart/${product._id}`, { quantity, totalPrice: quantity * product.unitPrice }, { headers })
                             .then(response => response.data)
         console.log(item)
     }

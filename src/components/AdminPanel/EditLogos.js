@@ -23,7 +23,7 @@ const EditLogos = () => {
     const sendFormToDB = async () => {
         await axios({
             method: 'post',
-            url: '/api/items',
+            url: 'https://fadyattia-4shopping-server.herokuapp.com/api/items',
             data: bodyFormData,
             headers: {'Content-Type': 'multipart/form-data' }
             })
