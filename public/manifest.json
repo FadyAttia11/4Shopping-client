@@ -1,0 +1,9 @@
+{
+  "short_name": "4Shopping",
+  "name": "4Shopping | E-commerce Shopping Website",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
+

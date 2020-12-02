@@ -1,0 +1,104 @@
+
+.cart-page {
+    margin: 80px auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-info {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.quantity-input {
+    width: 50px;
+}
+
+th {
+    text-align: left;
+    padding: 5px;
+    color: white;
+    background: #3b3bff;
+    font-weight: normal;
+}
+
+td {
+    padding: 10px 5px;
+}
+
+td input {
+    width: 40px;
+    height: 30px;
+    padding: 5px;
+}
+
+td .remove-btn {
+    color: #3b3bff;
+    font-size: 12px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+td .remove-btn:focus {
+    outline: none;
+}
+
+td img {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.total-price {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.total-price table {
+    border-top: 3px solid #3b3bff;
+    width: 100%;
+    max-width: 400px;
+}
+
+.cart-colors-sizes {
+    display: flex;
+}
+
+.cart-item-color {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: white;
+    margin: 6px 0 0 5px; 
+    border: 1px solid grey;
+}
+
+.cart-item-size {
+    margin-top: 10px;
+}
+
+.cart-product img, .cart-product p{
+    cursor: pointer;
+}
+
+.cart-product p:hover {
+    color: black;
+}
+
+/* to align everything on the right-side */
+td:last-child {
+    text-align: right;
+}
+th:last-child {
+    text-align: right;
+}
+
+@media only screen and (max-width: 600px) {
+    .cart-info p {
+        display: none;
+    }
+} 

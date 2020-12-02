@@ -1,0 +1,79 @@
+
+.row-2 {
+    justify-content: space-between;
+    margin: 100px auto 50px;
+}
+
+select {
+    border: 1px solid #3b3bff;
+    padding: 5px;
+}
+
+select:focus {
+    outline: none;
+}
+
+.page-btn {
+    margin: 0 auto 80px;
+}
+
+.all-product .rating a {
+    color: black;
+    margin-left: 10px;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.all-product .fa-star {
+    width: 16px;
+    height: 14px;
+}
+
+.all-product .price-before {
+    margin-top: 10px;
+}
+
+.page-num {
+    display: inline-block;
+    border: 1px solid #3b3bff;
+    margin-left: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.page-num:hover {
+    background: #3b3bff;
+    color: white;
+}
+
+
+.product-img {
+    cursor: pointer;
+}
+
+.product-name {
+    cursor: pointer;
+}
+
+.product-img:hover + .product-name {
+    color: black;
+}
+
+.product-name:hover {
+    color: black;
+}
+
+.all-product-headline {
+    cursor: pointer;
+}  
+
+
+@media only screen and (max-width: 600px) {
+    
+}
+
+

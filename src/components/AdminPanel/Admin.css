@@ -1,0 +1,109 @@
+
+.admin-panel {
+    /* background-color: rgb(105, 105, 105); */
+}
+
+.admin-title {
+    text-align: center;
+    position: relative;
+    /* line-height: 60px; */
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.admin-title::after {
+    content: '';
+    background: #3b3bff;
+    width: 80px;
+    height: 5px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.admin-grid {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.admin-form {
+    margin: 0 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+.admin-form-sm {
+    margin: 20px 0;
+    flex: 1;
+    padding: 20px;
+    box-shadow: 0 0 20px 0 rgba(0,0,0,0.1);
+}
+
+.admin-form-sm .form-title {
+    text-align: center  ;
+}
+
+.admin-form-sm label {
+    margin: 8px;
+}
+
+.admin-form-sm input {
+    width: 100%;
+    padding: 5px;
+    margin: 8px;
+    border: 1px solid #ccc;
+}
+
+.admin-form-sm input:focus {
+    border: 2px solid black;
+    border-radius: 4px;
+}
+
+.admin-form-sm textarea {
+    width: 100%;
+    resize: none;
+    padding: 5px;
+    margin: 8px;
+    border: 1px solid #ccc;
+    height: 75px
+}
+
+.sm-2 {
+    flex-grow: 3;
+
+}
+
+.sm-1 {
+    flex-grow: 1;
+}
+
+.logos input {
+    margin: 3px 8px;
+}
+
+.logos-title {
+    text-align: center;
+    /* margin-bottom: 10px; */
+}
+
+.logos-upload {
+    margin: 10px 0;
+}
+
+.test {
+    background-color: white;
+    min-width: 100px;
+    min-height: 500px;
+}   
+
+.test2 {
+    background-color: white;
+    min-width: 100px;
+    min-height: 100px;
+}
