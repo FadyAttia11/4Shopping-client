@@ -21,15 +21,15 @@ const Routes = () => {
 
     return (
         <Switch>
-            <Route exact path="/4shopping/" component={Home} />
-            <Route exact path="/4shopping/about" component={About} />
-            <Route path="/4shopping/products" component={Products} />
-            <Route path="/4shopping/offers" component={Offers} />
-            <Route path="/4shopping/product" component={Product} />
-            <Route path="/4shopping/admin" component={AdminPanel} />
-            <ProtectedLogin path="/4shopping/account/" auth={Auth.auth} component={Account} />
-            <ProtectedRoute path="/4shopping/cart" auth={Auth.auth} component={Cart} />
-            <ProtectedRoute path="/4shopping/profile" auth={Auth.auth} component={Profile} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/about" component={About} />
+            <Route path="/products" component={Products} />
+            <Route path="/offers" component={Offers} />
+            <Route path="/product" component={Product} />
+            <Route path="/admin" component={AdminPanel} />
+            <ProtectedLogin path="/account/" auth={Auth.auth} component={Account} />
+            <ProtectedRoute path="/cart" auth={Auth.auth} component={Cart} />
+            <ProtectedRoute path="/profile" auth={Auth.auth} component={Profile} />
         </Switch>
     )
 }

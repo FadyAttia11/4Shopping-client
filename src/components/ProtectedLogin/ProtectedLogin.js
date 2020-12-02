@@ -9,7 +9,7 @@ const ProtectedLogin = ({auth, component: Component, ...rest}) => {
         <Component />
       ) :
         (
-          <Redirect to="/4shopping" />
+          <Redirect to="/" />
         )}
       />
     )

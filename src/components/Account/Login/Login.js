@@ -42,7 +42,7 @@ const Login = (props) => {
             if(response.loginSuccess){
                 Auth.setAuth(true)
                 Cookies.set('x_auth', response.token)
-                history.push('/4shopping')
+                history.push('/')
                 // props.history.push('/4shopping')
             }else {
                 setErrors([

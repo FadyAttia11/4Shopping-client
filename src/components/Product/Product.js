@@ -38,7 +38,7 @@ const Product = (props) => {
 
     useEffect(() => {
         async function start() {
-            setProductId(props.location.pathname.slice(19)) //slice /4shopping/product from the path & just keep the id
+            setProductId(props.location.pathname.slice(9)) //slice /product from the path & just keep the id
 
             const allItems = await axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items').then(response => response.data)
             setAllItems(allItems.reverse())

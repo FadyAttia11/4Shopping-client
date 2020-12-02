@@ -86,7 +86,7 @@ const Products = (props) => {
     const displayElements = (chunk) => (
         chunk.map((item, i) => (
             <div className="col-4" key={i}>
-                <a onClick={() => {history.push(`/4shopping/product/${item._id}`)}}>
+                <a onClick={() => {history.push(`/product/${item._id}`)}}>
                     <img 
                         src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../img/product-1.jpg')} 
                         style={{width: "100%"}} 
@@ -117,7 +117,7 @@ const Products = (props) => {
     )
 
     const handleClickingAllProducts = () => {
-        history.push("/4shopping/products/all")
+        history.push("/products/all")
     }
 
 

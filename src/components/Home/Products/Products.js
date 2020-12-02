@@ -73,7 +73,7 @@ const Products = () => {
     const displayLatestElements = (chunk) => (
         chunk.map((item, i) => (
             <div className="col-4" key={i}>
-                    <a onClick={() => {history.push(`/4shopping/product/${item._id}`)}}>
+                    <a onClick={() => {history.push(`/product/${item._id}`)}}>
                         <img 
                             src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
                             className="product-img"
@@ -103,7 +103,7 @@ const Products = () => {
     const displayFeatured = () => (
         featuredItems.map((item, i) => (
             <div className="col-4" key={i}>
-                    <a onClick={() => {history.push(`/4shopping/product/${item._id}`)}}>
+                    <a onClick={() => {history.push(`/product/${item._id}`)}}>
                         <img 
                             src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
                             className="product-img"

@@ -9,7 +9,7 @@ const ProtectedRoute = ({auth, component: Component, ...rest}) => {
         <Component />
       ) :
         (
-          <Redirect to="/4shopping/account" />
+          <Redirect to="/account" />
         )}
       />
     )
