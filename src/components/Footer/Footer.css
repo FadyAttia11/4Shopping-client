@@ -39,6 +39,14 @@
     text-align: center;
 }
 
+.footer .social-links a {
+    color: #8a8a8a;
+}
+
+.footer .social-links a:hover {
+    color: #555555;
+}
+
 ul {
     list-style-type: none;
 }

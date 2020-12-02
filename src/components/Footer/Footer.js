@@ -28,12 +28,12 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div className="footer-col-4">
-                        <h3>Follow us</h3>
-                        <ul>
-                            <li>Facebook</li>
-                            <li>Twitter</li>
-                            <li>Instagram</li>
-                            <li>Youtube</li>
+                        <h3>C   ontact me</h3>
+                        <ul className="social-links">
+                            <a href="https://www.facebook.com/Fady.Attia1/" target="_blank" ><li>Facebook</li></a>
+                            <a href="https://twitter.com/FadyAttia12" target="_blank"><li>Twitter</li></a>
+                            <a href="https://www.linkedin.com/in/fady-attia-01/" target="_blank"><li>Linkedin</li></a>
+                            <a href="https://github.com/FadyAttia11" target="_blank"><li>Github</li></a>
                         </ul>
                     </div>
                 </div>
