@@ -40,7 +40,7 @@ const Product = (props) => {
         async function start() {
             setProductId(props.location.pathname.slice(19)) //slice /4shopping/product from the path & just keep the id
 
-            const allItems = await axios.get('/api/items').then(response => response.data)
+            const allItems = await axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items').then(response => response.data)
             setAllItems(allItems.reverse())
         }
         start()

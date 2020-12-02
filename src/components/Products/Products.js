@@ -62,13 +62,13 @@ const Products = (props) => {
         //you can access any value with:  params.get('key') ==> this will give you the value (IMPORTANT) 
         const search = props.location.search
         const params = (new URLSearchParams(search))
-        const request = axios.get(`/api/items/all?page=${params.get('page')}&category=${params.get('category')}`)
+        const request = axios.get(`https://fadyattia-4shopping-server.herokuapp.com/api/items/all?page=${params.get('page')}&category=${params.get('category')}`)
                             .then(response => response.data)
         return request
     }
 
     const getCountFromDB = () => {
-        const request = axios.get("/api/items/all/count")
+        const request = axios.get("https://fadyattia-4shopping-server.herokuapp.com/api/items/all/count")
                             .then(response => response.data)
         return request
     }
