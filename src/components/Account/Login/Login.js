@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import axios from 'axios'
 import AuthApi from '../../../context/AuthApi'
 import './Login.css'
@@ -37,9 +38,10 @@ const Login = (props) => {
             console.log(dataToSubmit) //just for debugging
             const response = await loginUser(dataToSubmit)
             console.log(response) //just for debugging (consists of loginSuccess)
-    
+
             if(response.loginSuccess){
                 Auth.setAuth(true)
+                Cookies.set('x_auth', response.token)
                 history.push('/4shopping')
                 // props.history.push('/4shopping')
             }else {
@@ -48,6 +50,7 @@ const Login = (props) => {
                     "failed to log in, please check your email and password"
                 ])
             }
+
         }else {
             setErrors([
                 ...errors,
@@ -58,12 +61,12 @@ const Login = (props) => {
 
     const isFormValid = () => email && password
 
+
     const loginUser = (dataToSubmit) => {
         const request = axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/users/login', dataToSubmit)
                         .then(response => response.data)
         return request
     }
-    
 
     return (
         <div>
