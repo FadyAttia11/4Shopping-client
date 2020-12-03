@@ -89,8 +89,8 @@ const Login = (props) => {
                 />
                 <button type="submit" className="btn">Login</button>
                 <Link onClick={(e) => e.preventDefault()} className="forgot-btn">Forgot Password?</Link>
-                <button onClick={(e) => e.preventDefault()} className="btn facebook-color">Login with Facebook</button>
-                <button onClick={(e) => e.preventDefault()} className="btn google-color">Login with Google</button>
+                {/* <button onClick={(e) => e.preventDefault()} className="btn facebook-color">Login with Facebook</button>
+                <button onClick={(e) => e.preventDefault()} className="btn google-color">Login with Google</button> */}
             </form>
 
             {errors.length > 0 && (

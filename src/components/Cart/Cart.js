@@ -42,13 +42,14 @@ const Cart = () => {
     useEffect(() => {
         if(cart.length !== 0) {
             setSubtotal(cart.map((cartElement) => cartElement.totalPrice).reduce((a, b) => a + b))
+            console.log('thie cart', cart)
         }
     }, [cart])
 
     
     
     const removeProduct = async (product) => {
-        setCart(cart.filter((cartElement) => cartElement.productId !== product.productId))
+        setCart(cart.filter((cartElement) => cartElement.productId !== product.productId || cartElement.size !== product.size || cartElement.color !== product.color))
 
         const currentCartElement = cart.filter((cartElement) => cartElement.productId === product.productId)
         await axios.delete(`https://fadyattia-4shopping-server.herokuapp.com/api/cart/${currentCartElement[0]._id}`, { headers })
@@ -91,13 +92,13 @@ const Cart = () => {
                 <tr>
                     <td>
                         <div className="cart-info">
-                        <a className="cart-product" onClick={() => {history.push(`/4shopping/product/${product.productId}`)}}>
+                        <a className="cart-product" onClick={() => {history.push(`/product/${product.productId}`)}}>
                             <img 
                                 src={ product.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${product.productImages[0]}` : require('../../img/product-1.jpg')}
                             />
                         </a>
                             <div>
-                                <a className="cart-product" onClick={() => {history.push(`/4shopping/product/${product.productId}`)}}>
+                                <a className="cart-product" onClick={() => {history.push(`/product/${product.productId}`)}}>
                                     <p>{product.name}</p>
                                 </a>
                                 <small>Price: ${product.unitPrice.toFixed(2)}</small>

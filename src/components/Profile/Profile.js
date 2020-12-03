@@ -47,7 +47,7 @@ const Profile = () => {
         if(response.logoutSuccess){
           Auth.setAuth(false)
           Cookies.remove('x_auth')
-          history.push('/4shopping')
+          history.push('/')
         }
     }
 
@@ -109,7 +109,7 @@ const Profile = () => {
             <div className="profile-top">
                 <div className="main-info">
                     <img 
-                        src={(user.profileImage !== "") ? (`http://localhost:5000/${user.profileImage}`) : require('../../img/no-photo.jpg')} 
+                        src={(user.profileImage !== "") ? (`https://fadyattia-4shopping-server.herokuapp.com/${user.profileImage}`) : require('../../img/no-photo.jpg')} 
                         alt="personal-img" 
                         className="personal-img"
                     />

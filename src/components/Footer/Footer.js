@@ -28,7 +28,7 @@ const Footer = () => {
                         </ul>
                     </div>
                     <div className="footer-col-4">
-                        <h3>C   ontact me</h3>
+                        <h3>Contact me</h3>
                         <ul className="social-links">
                             <a href="https://www.facebook.com/Fady.Attia1/" target="_blank" ><li>Facebook</li></a>
                             <a href="https://twitter.com/FadyAttia12" target="_blank"><li>Twitter</li></a>

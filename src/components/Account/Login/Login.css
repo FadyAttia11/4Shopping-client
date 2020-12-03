@@ -16,3 +16,10 @@
 .google-color:hover {
     background-color:rgb(202, 202, 202);
 }
+
+
+/* remove this when restoring facebook & google login buttons */
+#LoginForm {
+    margin-top: 30px;
+} 
+

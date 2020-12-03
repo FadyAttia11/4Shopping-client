@@ -9,7 +9,7 @@ const Account = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-2">
-                        <img src={require('../../img/image1.png')} style={{width: "100%"}} alt=""/>
+                        <img src={require('../../img/image1.png')} style={{width: "100%"}} />
                     </div>
 
                     <div className="col-2">
