@@ -36,6 +36,7 @@ const About = () => {
                             alt="twitter-logo" 
                             className="twitter-logo"
                         /></a>
+                        <p>or via Phone: 0122 956 5721 - 0109 398 1094</p>
                     </div>
                 </div>
             </div>

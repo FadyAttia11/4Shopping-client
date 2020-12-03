@@ -45,6 +45,11 @@ form input {
     border: 1px solid #ccc;
 }
 
+.col-2 .account-img {
+    max-width: 450px;
+    width: 100%;
+}
+
 form .btn {
     width: 100%;
     border: none;
@@ -75,4 +80,10 @@ form .forgot-btn {
     margin-top: 8px;
     transform: translateX(100px);
     transition: transform 1s;
+}
+
+@media only screen and (max-width: 666px) {
+    .col-2 .account-img {
+        display: none;
+    }
 }
