@@ -20,7 +20,7 @@ const Products = () => {
 
     useEffect(() => {
         async function getAllItems() {
-            const items = await getAllFromDB()
+            // const items = await getAllFromDB()
             const allItems = await getAllItemsFromDB()
             setAllItems(allItems.reverse())
             // setItems(items.reverse()) //to get the latest createdAt first
@@ -35,11 +35,11 @@ const Products = () => {
             return request
     }
 
-    const getAllFromDB = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items/all')
-                            .then(response => response.data)
-            return request
-    }
+    // const getAllFromDB = () => {
+    //     const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items/all')
+    //                         .then(response => response.data)
+    //         return request
+    // }
 
     useEffect(() => {
         console.log(allItems)
@@ -78,6 +78,7 @@ const Products = () => {
                             src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
                             className="product-img"
                             style={{width: "100%"}}
+                            alt=""
                         />
                         <h4 className="product-name">{item.name}</h4>
                     </a>
@@ -89,7 +90,7 @@ const Products = () => {
                         <FontAwesomeIcon icon={faStar} className="fa-star" />
                     </div>
                     <div className="price-wrapper">
-                        {(item.price == item.salePrice) ? (
+                        {(item.price === item.salePrice) ? (
                             <p className="price-after">£{item.salePrice} L.E</p>
                         ) : (
                             <><p className="price-before">£{item.price} L.E</p>
@@ -108,6 +109,7 @@ const Products = () => {
                             src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
                             className="product-img"
                             style={{width: "100%"}} 
+                            alt=""
                         />
                         <h4 className="product-name">{item.name}</h4>
                     </a>
@@ -119,7 +121,7 @@ const Products = () => {
                         <FontAwesomeIcon icon={faStar} className="fa-star" />
                     </div>
                     <div className="price-wrapper">
-                        {(item.price == item.salePrice) ? (
+                        {(item.price === item.salePrice) ? (
                             <p className="price-after">£{item.salePrice} L.E</p>
                         ) : (
                             <><p className="price-before">£{item.price} L.E</p>

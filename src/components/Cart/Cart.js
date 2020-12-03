@@ -99,9 +99,9 @@ const Cart = () => {
                         </a>
                             <div>
                                 <a className="cart-product" onClick={() => {history.push(`/product/${product.productId}`)}}>
-                                    <p>{product.name}</p>
+                                    <p>{product.name} - {product.color}</p>
                                 </a>
-                                <small>Price: ${product.unitPrice.toFixed(2)}</small>
+                                <small>Price: £{product.unitPrice.toFixed(2)}</small>
                                 <br />
                                 <div className="cart-colors-sizes">
                                     {displaySizes(product)}
@@ -123,7 +123,7 @@ const Cart = () => {
                             onChange={(e) => handleQuantityChange(e, product)} 
                         />
                     </td>
-                    <td>${product.totalPrice.toFixed(2)}</td>
+                    <td>£{product.totalPrice.toFixed(2)}</td>
                 </tr>
             </tbody>
         ))
@@ -150,21 +150,21 @@ const Cart = () => {
                     <tbody>
                         <tr>
                             <td>Subtotal</td>
-                            <td>${subtotal.toFixed(2)}</td>
+                            <td>£{subtotal.toFixed(2)}</td>
                         </tr>
                     </tbody>
 
                     <tbody>
                         <tr>
                             <td>Discount</td>
-                            <td>${(subtotal * 0.12).toFixed(2)}</td>
+                            <td>£{(subtotal * 0.12).toFixed(2)}</td>
                         </tr>
                     </tbody>
 
                     <tbody>
                         <tr>
                             <td>Total</td>
-                            <td>${(subtotal - (subtotal * 0.12)).toFixed(2)}</td>
+                            <td style={{fontWeight: "600"}}>£{(subtotal - (subtotal * 0.12)).toFixed(2)}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -14,7 +14,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-const database = firebase.database()
+// const database = firebase.database()
 
 
 // database.ref('expenses').on('value', (snapshot) => {

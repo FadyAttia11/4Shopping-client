@@ -17,7 +17,7 @@ const About = () => {
                 </div>
 
                 <div className="about-info-wrapper">
-                    <a href="https://fadyattia11.github.io/4for-react/" target="_blank"><img 
+                    <a href="https://fadyattia11.github.io/4for-react/" target="_blank" rel="noopener noreferrer"><img 
                         src={require('../../img/4for-logo.png')} 
                         alt="4for-logo" 
                         className="for-logo"
@@ -26,12 +26,12 @@ const About = () => {
                     <br />through a various number of websites & apps</p>
                     <div className="contact-wrapper">
                         <p id="contact">you can contact us through our: </p>
-                        <a href="https://www.linkedin.com/in/fady-attia-01/" target="_blank"><img 
+                        <a href="https://www.linkedin.com/in/fady-attia-01/" target="_blank" rel="noopener noreferrer"><img 
                             src={require('../../img/linkedin-logo.png')} 
                             alt="linkedin-logo" 
                             className="linkedin-logo"
                         /></a>
-                        <a href="https://twitter.com/FadyAttia12" target="_blank"><img 
+                        <a href="https://twitter.com/FadyAttia12" target="_blank" rel="noopener noreferrer"><img 
                             src={require('../../img/twitter-logo.png')} 
                             alt="twitter-logo" 
                             className="twitter-logo"

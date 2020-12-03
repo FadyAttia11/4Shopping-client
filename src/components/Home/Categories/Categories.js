@@ -13,19 +13,19 @@ const Home = () => {
                 <div className="row">
                     <div className="col-3">
                         <a href="" onClick={() => {history.push("/products?category=shirts")}}>
-                            <img className="category-img" src={require('../../../img/category-1.jpeg')} />
+                            <img className="category-img" src={require('../../../img/category-1.jpeg')} alt="" />
                         </a>
                         <h2>Shirts</h2>
                     </div>
                     <div className="col-3">
                         <a href="" onClick={() => {history.push("/products?category=pants")}}>
-                            <img className="category-img" src={require('../../../img/category-2.jpeg')} />
+                            <img className="category-img" src={require('../../../img/category-2.jpeg')} alt="" />
                         </a>
                         <h2>Pants</h2>
                     </div>
                     <div className="col-3">
                         <a href="" onClick={() => {history.push("/products?category=shoes")}}>
-                            <img className="category-img" src={require('../../../img/category-3.jpeg')} />
+                            <img className="category-img" src={require('../../../img/category-3.jpeg')} alt="" />
                         </a>
                         <h2>Shoes</h2>
                     </div>

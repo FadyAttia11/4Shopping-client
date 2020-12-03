@@ -23,7 +23,7 @@ const Profile = () => {
     const hiddenFileInput = React.useRef(null)
 
     //used to store the files uploaded to the input file
-    const fileInput = React.createRef()
+    // const fileInput = React.createRef()
 
     useEffect(() => {
         async function getUserData() {

@@ -105,7 +105,7 @@ const Products = (props) => {
                 </div>
 
                 <div className="price-wrapper">
-                    {(item.price == item.salePrice) ? (
+                    {(item.price === item.salePrice) ? (
                         <p className="price-after">£{item.salePrice} L.E</p>
                     ) : (
                         <><p className="price-before">£{item.price} L.E</p>
