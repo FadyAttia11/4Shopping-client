@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import CartApi from '../../context/CartApi'
+import { SERVER_URL } from '../../config/config'
 
 //displays the content of the cart for a specific user
 
@@ -41,7 +42,7 @@ const Cart = () => {
         setCart(cart.filter((cartElement) => cartElement.productId !== product.productId || cartElement.size !== product.size || cartElement.color !== product.color))
 
         const currentCartElement = cart.filter((cartElement) => cartElement.productId === product.productId)
-        await axios.delete(`https://fadyattia-4shopping-server.herokuapp.com/api/cart/${currentCartElement[0]._id}`, { headers })
+        await axios.delete(`${SERVER_URL}/api/cart/${currentCartElement[0]._id}`, { headers })
                 .then(response => response.data)
         
     }
@@ -55,7 +56,7 @@ const Cart = () => {
         }))
 
         //patch the cart by the cart _id (unique) 
-        const item = await axios.patch(`https://fadyattia-4shopping-server.herokuapp.com/api/cart/${product._id}`, { quantity, totalPrice: quantity * product.unitPrice }, { headers })
+        const item = await axios.patch(`${SERVER_URL}/api/cart/${product._id}`, { quantity, totalPrice: quantity * product.unitPrice }, { headers })
                             .then(response => response.data)
         console.log(item)
     }
@@ -83,7 +84,7 @@ const Cart = () => {
                         <div className="cart-info">
                         <a className="cart-product" onClick={() => {history.push(`/product/${product.productId}`)}}>
                             <img 
-                                src={ product.productImage ? `https://fadyattia-4shopping-server.herokuapp.com/${product.productImage}` : require('../../img/product-1.jpg')}
+                                src={ product.productImage ? `${SERVER_URL}/${product.productImage}` : require('../../img/product-1.jpg')}
                             />
                         </a>
                             <div>

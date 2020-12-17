@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import { SERVER_URL } from '../../../config/config'
 
 const Products = () => {
 
@@ -30,7 +31,7 @@ const Products = () => {
 
 
     const getAllItemsFromDB = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items')
+        const request = axios.get(`${SERVER_URL}/api/items`)
                             .then(response => response.data)
             return request
     }
@@ -75,7 +76,7 @@ const Products = () => {
             <div className="col-4" key={i}>
                     <a onClick={() => {history.push(`/product/${item._id}`)}}>
                         <img 
-                            src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
+                            src={ item.productImages.length !== 0 ? `${SERVER_URL}/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
                             className="product-img"
                             style={{width: "100%"}}
                             alt=""
@@ -106,7 +107,7 @@ const Products = () => {
             <div className="col-4" key={i}>
                     <a onClick={() => {history.push(`/product/${item._id}`)}}>
                         <img 
-                            src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
+                            src={ item.productImages.length !== 0 ? `${SERVER_URL}/${item.productImages[0]}` : require('../../../img/product-1.jpg')} 
                             className="product-img"
                             style={{width: "100%"}} 
                             alt=""

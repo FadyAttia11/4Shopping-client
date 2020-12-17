@@ -5,6 +5,7 @@ import axios from 'axios'
 import './Profile.css'
 
 import AuthApi from '../../context/AuthApi'
+import { SERVER_URL } from '../../config/config'
 
 var FormData = require('form-data');
 
@@ -36,7 +37,7 @@ const Profile = () => {
 
 
     const getUserFromDB = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/me', { headers })
+        const request = axios.get(`${SERVER_URL}/api/users/me`, { headers })
                             .then(response => response.data)
             return request
     }
@@ -52,7 +53,7 @@ const Profile = () => {
     }
 
     const logoutUser = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/logout', { headers })
+        const request = axios.get(`${SERVER_URL}/api/users/logout`, { headers })
                         .then(response => response.data)
         return request
     }
@@ -87,7 +88,7 @@ const Profile = () => {
     const sendFormToDB = async () => {
         await axios({
             method: 'post',
-            url: 'https://fadyattia-4shopping-server.herokuapp.com/api/users/me/avatar',
+            url: `${SERVER_URL}/api/users/me/avatar`,
             data: bodyFormData,
             headers: {
                 'Content-Type': 'multipart/form-data' ,
@@ -109,7 +110,7 @@ const Profile = () => {
             <div className="profile-top">
                 <div className="main-info">
                     <img 
-                        src={(user.profileImage !== "") ? (`https://fadyattia-4shopping-server.herokuapp.com/${user.profileImage}`) : require('../../img/no-photo.jpg')} 
+                        src={(user.profileImage !== "") ? (`${SERVER_URL}/${user.profileImage}`) : require('../../img/no-photo.jpg')} 
                         alt="personal-img" 
                         className="personal-img"
                     />

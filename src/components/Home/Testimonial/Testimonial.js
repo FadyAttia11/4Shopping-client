@@ -3,6 +3,7 @@ import './Testimonial.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faQuoteLeft } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios'
+import { SERVER_URL } from '../../../config/config'
 
 const Testimonial = () => {
 
@@ -21,7 +22,7 @@ const Testimonial = () => {
     }, [testimonials])
 
     const getTestimonialsFromDB = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/testimonials/all')
+        const request = axios.get(`${SERVER_URL}/api/testimonials/all`)
                             .then(response => response.data)
             return request
     }
@@ -38,7 +39,7 @@ const Testimonial = () => {
                     <FontAwesomeIcon icon={faStar} className="fa-star" />
                     <FontAwesomeIcon icon={faStar} className="fa-star" />
                 </div>
-                <img src={`https://fadyattia-4shopping-server.herokuapp.com/${testimonial.testimonialImage}`} alt="testimonial-img" className="testimonial-img"></img>
+                <img src={`${SERVER_URL}/${testimonial.testimonialImage}`} alt="testimonial-img" className="testimonial-img"></img>
                 <h3>{testimonial.name}</h3>
             </div>
         ))

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './Offer.css'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
+import { SERVER_URL } from '../../../config/config'
 
 const Offer = () => {
 
@@ -20,7 +21,7 @@ const Offer = () => {
     }, [offer])
 
     const fetchOfferFromDB = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/exclusive')
+        const request = axios.get(`${SERVER_URL}/api/exclusive`)
                             .then(response => response.data)
             return request
     }
@@ -31,7 +32,7 @@ const Offer = () => {
             <div className="row">
                 <div className="col-2 offer-arrow">
                     <img 
-                        src={`https://fadyattia-4shopping-server.herokuapp.com/${offer[0].exclusiveImage}`}
+                        src={`${SERVER_URL}/${offer[0].exclusiveImage}`}
                         className="offer-img" 
                         alt="" 
                     />

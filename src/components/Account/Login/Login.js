@@ -4,6 +4,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import AuthApi from '../../../context/AuthApi'
 import './Login.css'
+import { SERVER_URL } from '../../../config/config'
 
 const Login = (props) => {
 
@@ -63,7 +64,7 @@ const Login = (props) => {
 
 
     const loginUser = (dataToSubmit) => {
-        const request = axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/users/login', dataToSubmit)
+        const request = axios.post(`${SERVER_URL}/api/users/login`, dataToSubmit)
                         .then(response => response.data)
         return request
     }

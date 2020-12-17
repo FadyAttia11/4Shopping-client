@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { SERVER_URL } from '../../../config/config'
 
 const Signup = () => {
 
@@ -24,7 +25,7 @@ const Signup = () => {
         }
 
         try {
-            await axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/users', dataToSubmit)
+            await axios.post(`${SERVER_URL}/api/users`, dataToSubmit)
             setMsg('You Have Successfully Created An Account!')
             // setBoolean(true)
             setName('')

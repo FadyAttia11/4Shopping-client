@@ -7,6 +7,7 @@ import Cookies from 'js-cookie'
 import axios from 'axios'
 import CartApi from '../../context/CartApi'
 // import ProductsApi from '../../context/ProductsApi'
+import { SERVER_URL } from '../../config/config'
 
 
 const Product = (props) => {
@@ -45,7 +46,7 @@ const Product = (props) => {
         async function start() {
             setProductId(props.location.pathname.slice(9)) //slice /product from the path & just keep the id
 
-            const allItems = await axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items').then(response => response.data)
+            const allItems = await axios.get(`${SERVER_URL}/api/items`).then(response => response.data)
             setAllItems(allItems.reverse())
         }
         start()
@@ -147,13 +148,13 @@ const Product = (props) => {
     }, [setProductSizes])
 
     const getCurrentUser = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/me', { headers })
+        const request = axios.get(`${SERVER_URL}/api/users/me`, { headers })
                             .then(response => response.data)
         return request
     }
 
     const getProductFromDB = () => {
-        const request = axios.get(`https://fadyattia-4shopping-server.herokuapp.com/api/items/${productId}`)
+        const request = axios.get(`${SERVER_URL}/api/items/${productId}`)
                             .then(response => response.data)
             return request
     }
@@ -236,17 +237,33 @@ const Product = (props) => {
     }
 
 
-    const addToCart = () => {
-        cart.map(async (cartElement) => {
-            (cartElement._id === productId && cartElement.color === cartColor && cartElement.size === cartSize) ? (
-                console.log("Element is repeated")
-            ) : (
-                await addNewToCart()
-                // console.log("added to cart: ", addNewCartToServer)
-                // setCart(prevCart => [...prevCart, addNewCartToServer])
-            )
+    const addToCart = async () => {
+        const repeatedElement = cart.find(cartElement => {
+            return cartElement.productId === productId && cartElement.color === cartColor && cartElement.size === cartSize
         })
+        if(repeatedElement) {
+            // console.log('the repeated element is: ', repeatedElement)
+            const editCartElementQuantity = await editQuantityOfCart()
+            setCart(prevCart => [...prevCart, editCartElementQuantity])
+        } else {
+            const addNewCartToServer = await addNewToCart()
+            setCart(prevCart => [...prevCart, addNewCartToServer])
+        }
         
+        // cart.map(async (cartElement) => {
+        //     (cartElement.productId === productId && cartElement.color === cartColor && cartElement.size === cartSize) ? (
+        //         console.log("Element is repeated")
+        //     ) : (
+        //         console.log('NOT REPEATED')
+        //         // await addNewToCart()
+        //         // console.log("added to cart: ", addNewCartToServer)
+        //         // setCart(prevCart => [...prevCart, addNewCartToServer])
+        //     )
+        // }) 
+    }
+
+    const updatedQuantity = {
+        quantity
     }
 
     const dataForNewToCart = {
@@ -261,8 +278,14 @@ const Product = (props) => {
         productImage: colorFirstImage
     }
 
+    const editQuantityOfCart = () => {
+        const request = axios.patch(`${SERVER_URL}/api/cart/duplicated/${productId}`, updatedQuantity, { headers })
+                            .then(response => response.data)
+        return request
+    }
+
     const addNewToCart = () => {
-        const request = axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/cart/addtocart', dataForNewToCart, { headers })
+        const request = axios.post(`${SERVER_URL}/api/cart/addtocart`, dataForNewToCart, { headers })
                             .then(response => response.data)
         return request
     }
@@ -272,7 +295,7 @@ const Product = (props) => {
         <img 
             src=
                 { productImages.length !== 0 && productColors.length !== 0 ? 
-                    `https://fadyattia-4shopping-server.herokuapp.com/${bigImage}`
+                    `${SERVER_URL}/${bigImage}`
                     : 
                     require('../../img/no-photo.jpg')
                 }
@@ -286,7 +309,7 @@ const Product = (props) => {
         smallImages.map((image, i) => (
             <div className="small-img-col" key={i}>
                 <img 
-                    src={`https://fadyattia-4shopping-server.herokuapp.com/${image}`} 
+                    src={`${SERVER_URL}/${image}`} 
                     // style={{width: "100%"}} 
                     className="small-img"
                     id={i}
@@ -305,7 +328,7 @@ const Product = (props) => {
                         history.push(`/4shopping/product/${item._id}`)
                     }}>
                         <img 
-                            src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../img/product-1.jpg')} 
+                            src={ item.productImages.length !== 0 ? `${SERVER_URL}/${item.productImages[0]}` : require('../../img/product-1.jpg')} 
                             className="product-img"
                             style={{width: "100%"}} 
                             alt=""
