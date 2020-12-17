@@ -16,7 +16,7 @@ const Hero = () => {
                             <h1>Get The Best Outfits<br />that makes you shine!</h1>
                             <p>With our collections you can choose between several styles to get the ones that
                                 truly fits your character and gives you maximum confidence.</p>
-                            <Link to="/4shopping/offers" className="btn">Explore Offers &#8594;</Link>
+                            <Link to="/offers" className="btn">Explore Offers &#8594;</Link>
                         </div>
                     </div>
 

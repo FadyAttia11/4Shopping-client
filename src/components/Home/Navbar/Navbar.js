@@ -20,10 +20,10 @@ const Navbar = () => {
                     <ul id="menuItems" style={{maxHeight: "0px"}}>
                         <li><Link to="/">Home</Link></li>
                         {/* <li><Link to="/4shopping/admin">Admin</Link></li> */}
-                        <li><Link to="/offers"><span>Offers & Deals</span></Link></li>
+                        <li><Link to="/offers">Offers & Deals</Link></li>
                         <li><Link to="/products/all">All Products</Link></li>
                         <li><Link to="/about">About</Link></li>
-                        {!Auth.auth && <li><Link to="/account"><span>Login</span></Link></li>}
+                        {!Auth.auth && <li><Link to="/account">Login</Link></li>}
                         {/* {Auth.auth && <button className="cta" onClick={handleSignOut}><span>Sign out</span></button>} */}
                     </ul>
                 </nav>

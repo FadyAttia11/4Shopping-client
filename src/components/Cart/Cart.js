@@ -1,42 +1,31 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './Cart.css'
 import { useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import CartApi from '../../context/CartApi'
 
 //displays the content of the cart for a specific user
 
 const Cart = () => {
 
-    const [userId, setUserId] = useState('')
-    const [cart, setCart] = useState([])
     const [subtotal, setSubtotal] = useState(0)
+    const [colorFirstImage, setColorFirstImage] = useState([])
 
     const headers = { Authorization: `Bearer ${Cookies.get('x_auth')}`}
 
+    const { cart, setCart } = useContext(CartApi)
+
     const history = useHistory()
 
-    useEffect(() => {
-        async function getCurrentUser() {
-            const user = await axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/me', { headers })
-                                .then(response => response.data)
-            setUserId(user._id)
-        }
-        getCurrentUser()
-    }, [])
+    // useEffect(() => {
+    //     const colorFirstImage = cart.map(cartElement => cartElement.productImages.find(image => image.slice(30, -6) === cartElement.color))
+    //     setColorFirstImage(colorFirstImage)
+    // }, [])
 
-
-    useEffect(() => {
-        if(userId !== '') {
-            async function getCart() {
-                const cart = await axios.get(`https://fadyattia-4shopping-server.herokuapp.com/api/cart/getusercart/${userId}`, { headers })
-                                    .then(response => response.data)
-                setCart(cart)
-            }
-            getCart()
-        }
-    }, [userId])
-
+    // useEffect(() => {
+    //     console.log('the color first image is: ', colorFirstImage)
+    // },[colorFirstImage])
 
 
     useEffect(() => {
@@ -94,7 +83,7 @@ const Cart = () => {
                         <div className="cart-info">
                         <a className="cart-product" onClick={() => {history.push(`/product/${product.productId}`)}}>
                             <img 
-                                src={ product.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${product.productImages[0]}` : require('../../img/product-1.jpg')}
+                                src={ product.productImage ? `https://fadyattia-4shopping-server.herokuapp.com/${product.productImage}` : require('../../img/product-1.jpg')}
                             />
                         </a>
                             <div>
@@ -117,6 +106,7 @@ const Cart = () => {
                     <td>
                         <input 
                             type="number" 
+                            min="1"
                             className="quantity-input"
                             initialvalue={1}
                             value={product.quantity} 

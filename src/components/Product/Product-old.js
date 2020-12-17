@@ -1,13 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Product.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faIndent } from '@fortawesome/free-solid-svg-icons'
 import { Link, useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
-import CartApi from '../../context/CartApi'
-// import ProductsApi from '../../context/ProductsApi'
-
 
 const Product = (props) => {
 
@@ -19,9 +16,8 @@ const Product = (props) => {
     const [productReviews, setProductReviews] = useState([])
     const [productColors, setProductColors] = useState([])
     const [productSizes, setProductSizes] = useState([])
+    // const [productKeywords, setProductKeywords] = useState([])
     const [productImages, setProductImages] = useState([])
-    const [colorsFirstImage, setColorsFirstImage] = useState([])
-    const [colorFirstImage, setColorFirstImage] = useState('')
     const [productDetails, setProductDetails] = useState([])
 
     const [cartColor, setCartColor] = useState('')
@@ -33,13 +29,12 @@ const Product = (props) => {
 
     const [quantity, setQuantity] = useState(1) //for the current product product
 
+    // const [currentUser, setCurrentUser] = useState({})
     const [userOwnerId, setUserOwnerId] = useState('')
 
     const headers = { Authorization: `Bearer ${Cookies.get('x_auth')}`}
 
     const history = useHistory()
-
-    const { cart, setCart } = useContext(CartApi)
 
     useEffect(() => {
         async function start() {
@@ -82,14 +77,6 @@ const Product = (props) => {
         }
     }, [product])
 
-    // useEffect(() => {
-    //     if(productImages.length !== 0) {
-    //         console.log('product imgs are: ', productImages)
-    //         const colorFirstImage = productImages.find(image => image.slice(30, -6) === cartColor)
-    //         setColorFirstImage(colorFirstImage)
-    //     }
-    // }, [productImages])
-
     useEffect(() => {
         let imageColorsArray = []
         // let currentColor = []
@@ -127,15 +114,9 @@ const Product = (props) => {
             if(imageColorsArray[0].length !== 0) {
                 setBigImage(imageColorsArray[0][0])
                 setSmallImages(imageColorsArray[0])
-                const colorsFirstImage = imageColorsArray.map(imageColorArray => imageColorArray[0]) //return the 1st image of every color
-                setColorsFirstImage(colorsFirstImage)
             } 
         } 
     }, [imageColorsArray])
-
-    useEffect(() => {
-        console.log("the 1st image for every color is: ", colorFirstImage)
-    }, [colorFirstImage])
 
     useEffect(() => {
         async function getUserInfo() {
@@ -183,9 +164,6 @@ const Product = (props) => {
     const handleClickingColor = (e, color) => {
         e.preventDefault()
         setCartColor(color)
-        const colorFirstImage = colorsFirstImage.find(image => image.slice(30, -6) === color)
-        setColorFirstImage(colorFirstImage)
-
         e.target.style.border = '5px solid grey'
 
         let colorsHaveImagesArray = []
@@ -235,18 +213,9 @@ const Product = (props) => {
         // console.log(e.target.style)
     }
 
-
-    const addToCart = () => {
-        cart.map(async (cartElement) => {
-            (cartElement._id === productId && cartElement.color === cartColor && cartElement.size === cartSize) ? (
-                console.log("Element is repeated")
-            ) : (
-                await addNewToCart()
-                // console.log("added to cart: ", addNewCartToServer)
-                // setCart(prevCart => [...prevCart, addNewCartToServer])
-            )
-        })
-        
+    const addToCart = async () => {
+        const addNewCartToServer = await addNewToCart()
+        console.log(addNewCartToServer)
     }
 
     const dataForNewToCart = {
@@ -258,7 +227,7 @@ const Product = (props) => {
         quantity,
         unitPrice: product.salePrice,
         totalPrice: product.salePrice * quantity,
-        productImage: colorFirstImage
+        productImages
     }
 
     const addNewToCart = () => {
@@ -381,7 +350,6 @@ const Product = (props) => {
 
                     <input 
                         type="number" 
-                        min="1"
                         value={quantity} 
                         onChange={(e) => setQuantity(e.target.value)}  
                     />
