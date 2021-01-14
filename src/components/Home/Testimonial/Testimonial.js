@@ -11,21 +11,11 @@ const Testimonial = () => {
 
     useEffect(() => {
         async function getTestimonials(){
-            const testimonials = await getTestimonialsFromDB()
+            const testimonials = await axios.get(`${SERVER_URL}/api/testimonials/all`).then(response => response.data)
             setTestimonials(testimonials)
         }
         getTestimonials()
     }, [])
-
-    useEffect(() => {
-        console.log(testimonials)
-    }, [testimonials])
-
-    const getTestimonialsFromDB = () => {
-        const request = axios.get(`${SERVER_URL}/api/testimonials/all`)
-                            .then(response => response.data)
-            return request
-    }
 
     const displayTestimonials = () => (
         testimonials.map((testimonial, i) => (

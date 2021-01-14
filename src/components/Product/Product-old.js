@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './Product.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faIndent } from '@fortawesome/free-solid-svg-icons'
 import { Link, useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import CartApi from '../../context/CartApi'
+// import ProductsApi from '../../context/ProductsApi'
+import { SERVER_URL } from '../../config/config'
+
 
 const Product = (props) => {
 
@@ -16,8 +20,9 @@ const Product = (props) => {
     const [productReviews, setProductReviews] = useState([])
     const [productColors, setProductColors] = useState([])
     const [productSizes, setProductSizes] = useState([])
-    // const [productKeywords, setProductKeywords] = useState([])
     const [productImages, setProductImages] = useState([])
+    const [colorsFirstImage, setColorsFirstImage] = useState([])
+    const [colorFirstImage, setColorFirstImage] = useState('')
     const [productDetails, setProductDetails] = useState([])
 
     const [cartColor, setCartColor] = useState('')
@@ -29,18 +34,19 @@ const Product = (props) => {
 
     const [quantity, setQuantity] = useState(1) //for the current product product
 
-    // const [currentUser, setCurrentUser] = useState({})
     const [userOwnerId, setUserOwnerId] = useState('')
 
     const headers = { Authorization: `Bearer ${Cookies.get('x_auth')}`}
 
     const history = useHistory()
 
+    const { cart, setCart } = useContext(CartApi)
+
     useEffect(() => {
         async function start() {
             setProductId(props.location.pathname.slice(9)) //slice /product from the path & just keep the id
 
-            const allItems = await axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/items').then(response => response.data)
+            const allItems = await axios.get(`${SERVER_URL}/api/items`).then(response => response.data)
             setAllItems(allItems.reverse())
         }
         start()
@@ -76,6 +82,14 @@ const Product = (props) => {
             setBigImage('uploads\\products\\1605624203696no-photo.jpg')
         }
     }, [product])
+
+    // useEffect(() => {
+    //     if(productImages.length !== 0) {
+    //         console.log('product imgs are: ', productImages)
+    //         const colorFirstImage = productImages.find(image => image.slice(30, -6) === cartColor)
+    //         setColorFirstImage(colorFirstImage)
+    //     }
+    // }, [productImages])
 
     useEffect(() => {
         let imageColorsArray = []
@@ -114,9 +128,15 @@ const Product = (props) => {
             if(imageColorsArray[0].length !== 0) {
                 setBigImage(imageColorsArray[0][0])
                 setSmallImages(imageColorsArray[0])
+                const colorsFirstImage = imageColorsArray.map(imageColorArray => imageColorArray[0]) //return the 1st image of every color
+                setColorsFirstImage(colorsFirstImage)
             } 
         } 
     }, [imageColorsArray])
+
+    useEffect(() => {
+        console.log("the 1st image for every color is: ", colorFirstImage)
+    }, [colorFirstImage])
 
     useEffect(() => {
         async function getUserInfo() {
@@ -128,13 +148,13 @@ const Product = (props) => {
     }, [setProductSizes])
 
     const getCurrentUser = () => {
-        const request = axios.get('https://fadyattia-4shopping-server.herokuapp.com/api/users/me', { headers })
+        const request = axios.get(`${SERVER_URL}/api/users/me`, { headers })
                             .then(response => response.data)
         return request
     }
 
     const getProductFromDB = () => {
-        const request = axios.get(`https://fadyattia-4shopping-server.herokuapp.com/api/items/${productId}`)
+        const request = axios.get(`${SERVER_URL}/api/items/${productId}`)
                             .then(response => response.data)
             return request
     }
@@ -164,6 +184,9 @@ const Product = (props) => {
     const handleClickingColor = (e, color) => {
         e.preventDefault()
         setCartColor(color)
+        const colorFirstImage = colorsFirstImage.find(image => image.slice(30, -6) === color)
+        setColorFirstImage(colorFirstImage)
+
         e.target.style.border = '5px solid grey'
 
         let colorsHaveImagesArray = []
@@ -213,9 +236,49 @@ const Product = (props) => {
         // console.log(e.target.style)
     }
 
+
     const addToCart = async () => {
-        const addNewCartToServer = await addNewToCart()
-        console.log(addNewCartToServer)
+        const repeatedElement = cart.find(cartElement => {
+            return cartElement.productId === productId && cartElement.color === cartColor && cartElement.size === cartSize
+        })
+        if(repeatedElement) {
+            // console.log('the repeated element is: ', repeatedElement)
+            const editedCartElementQuantity = await editQuantityOfCart()
+            console.log(editedCartElementQuantity.quantity)
+            // setCart(prevCart => [...prevCart, editCartElementQuantity])
+            console.log(userOwnerId)
+            const updatedCart = await axios.get(`${SERVER_URL}/api/cart/getusercart/${userOwnerId}`, { headers })
+            console.log(updatedCart.data)
+            setCart(updatedCart.data)
+            // setCart(prevCart => prevCart.forEach((cartElement) => {
+            //     if(cartElement.productId === productId && cartElement.color === cartColor && cartElement.size === cartSize) {
+            //         cartElement.quantity = editedCartElementQuantity.quantity
+            //         return cartElement
+            //     } else {
+            //         return cartElement
+            //     }
+            // }))
+        } else {
+            const addNewCartToServer = await addNewToCart()
+            setCart(prevCart => [...prevCart, addNewCartToServer])
+        }
+        
+        // cart.map(async (cartElement) => {
+        //     (cartElement.productId === productId && cartElement.color === cartColor && cartElement.size === cartSize) ? (
+        //         console.log("Element is repeated")
+        //     ) : (
+        //         console.log('NOT REPEATED')
+        //         // await addNewToCart()
+        //         // console.log("added to cart: ", addNewCartToServer)
+        //         // setCart(prevCart => [...prevCart, addNewCartToServer])
+        //     )
+        // }) 
+    }
+
+    const updatedQuantity = {
+        color: cartColor,
+        size: cartSize,
+        quantity
     }
 
     const dataForNewToCart = {
@@ -227,11 +290,17 @@ const Product = (props) => {
         quantity,
         unitPrice: product.salePrice,
         totalPrice: product.salePrice * quantity,
-        productImages
+        productImage: colorFirstImage
+    }
+
+    const editQuantityOfCart = () => {
+        const request = axios.patch(`${SERVER_URL}/api/cart/duplicated/${productId}`, updatedQuantity, { headers })
+                            .then(response => response.data)
+        return request
     }
 
     const addNewToCart = () => {
-        const request = axios.post('https://fadyattia-4shopping-server.herokuapp.com/api/cart/addtocart', dataForNewToCart, { headers })
+        const request = axios.post(`${SERVER_URL}/api/cart/addtocart`, dataForNewToCart, { headers })
                             .then(response => response.data)
         return request
     }
@@ -241,7 +310,7 @@ const Product = (props) => {
         <img 
             src=
                 { productImages.length !== 0 && productColors.length !== 0 ? 
-                    `https://fadyattia-4shopping-server.herokuapp.com/${bigImage}`
+                    `${SERVER_URL}/${bigImage}`
                     : 
                     require('../../img/no-photo.jpg')
                 }
@@ -255,7 +324,7 @@ const Product = (props) => {
         smallImages.map((image, i) => (
             <div className="small-img-col" key={i}>
                 <img 
-                    src={`https://fadyattia-4shopping-server.herokuapp.com/${image}`} 
+                    src={`${SERVER_URL}/${image}`} 
                     // style={{width: "100%"}} 
                     className="small-img"
                     id={i}
@@ -274,7 +343,7 @@ const Product = (props) => {
                         history.push(`/4shopping/product/${item._id}`)
                     }}>
                         <img 
-                            src={ item.productImages.length !== 0 ? `https://fadyattia-4shopping-server.herokuapp.com/${item.productImages[0]}` : require('../../img/product-1.jpg')} 
+                            src={ item.productImages.length !== 0 ? `${SERVER_URL}/${item.productImages[0]}` : require('../../img/product-1.jpg')} 
                             className="product-img"
                             style={{width: "100%"}} 
                             alt=""
@@ -350,6 +419,7 @@ const Product = (props) => {
 
                     <input 
                         type="number" 
+                        min="1"
                         value={quantity} 
                         onChange={(e) => setQuantity(e.target.value)}  
                     />

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import AuthApi from '../../../context/AuthApi'
 import './Navbar.css'
 
+
 const Navbar = () => {
 
     const Auth = useContext(AuthApi)

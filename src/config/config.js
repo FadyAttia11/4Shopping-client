@@ -1,6 +1,6 @@
 
 
-const SERVER_URL = "https://fadyattia-4shopping-server.herokuapp.com" 
+const SERVER_URL = "http://localhost:5000" 
 
 module.exports = {
     SERVER_URL

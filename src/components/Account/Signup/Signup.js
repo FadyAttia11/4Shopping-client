@@ -53,7 +53,7 @@ const Signup = () => {
                 <input 
                     name="email" 
                     type="email" 
-                    id="email" 
+                    id="reg-email" 
                     placeholder="Email" 
                     value={email} 
                     onChange={(e) => setEmail(e.target.value)} 
@@ -62,7 +62,7 @@ const Signup = () => {
                 <input 
                     name="password" 
                     type="password" 
-                    id="password" 
+                    id="reg-password" 
                     placeholder="Password" 
                     value={password} 
                     onChange={(e) => setPassword(e.target.value)} 
@@ -77,7 +77,7 @@ const Signup = () => {
                     onChange={(e) => setReEnterPassword(e.target.value)} 
                     required
                 />
-                <button type="submit" class="btn">Register</button>
+                <button type="submit" className="btn">Register</button>
             </form>
 
             {msg && <p>{msg}</p>}

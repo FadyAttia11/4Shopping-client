@@ -6,29 +6,36 @@ import { Link, useHistory } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import axios from 'axios'
 import CartApi from '../../context/CartApi'
-// import ProductsApi from '../../context/ProductsApi'
+import ProductsApi from '../../context/ProductsApi'
 import { SERVER_URL } from '../../config/config'
 
 
 const Product = (props) => {
 
-    const [allItems, setAllItems] = useState([])
-    const [featuredItems, setFeaturedItems] = useState([]) //array of the last 4 featured
+    const { cart, setCart } = useContext(CartApi)
+    const { products } = useContext(ProductsApi)
+    const [ featuredProducts, setFeaturedProducts ] = useState([])
+    const headers = { Authorization: `Bearer ${Cookies.get('x_auth')}`}
+    const history = useHistory()
 
     const [productId, setProductId] = useState('')
     const [product, setProduct] = useState({})
+
+
     const [productReviews, setProductReviews] = useState([])
     const [productColors, setProductColors] = useState([])
     const [productSizes, setProductSizes] = useState([])
     const [productImages, setProductImages] = useState([])
+    const [productDetails, setProductDetails] = useState([])
+    const [bigImage, setBigImage] = useState('')
+    
     const [colorsFirstImage, setColorsFirstImage] = useState([])
     const [colorFirstImage, setColorFirstImage] = useState('')
-    const [productDetails, setProductDetails] = useState([])
 
     const [cartColor, setCartColor] = useState('')
     const [cartSize, setCartSize] = useState('')
 
-    const [bigImage, setBigImage] = useState('')
+    
     const [imageColorsArray, setImageColorsArray] = useState([])
     const [smallImages, setSmallImages] = useState([])
 
@@ -36,39 +43,29 @@ const Product = (props) => {
 
     const [userOwnerId, setUserOwnerId] = useState('')
 
-    const headers = { Authorization: `Bearer ${Cookies.get('x_auth')}`}
-
-    const history = useHistory()
-
-    const { cart, setCart } = useContext(CartApi)
-
+    
     useEffect(() => {
-        async function start() {
-            setProductId(props.location.pathname.slice(9)) //slice /product from the path & just keep the id
-
-            const allItems = await axios.get(`${SERVER_URL}/api/items`).then(response => response.data)
-            setAllItems(allItems.reverse())
-        }
-        start()
+        setProductId(props.location.pathname.slice(9)) //slice /product from the path & just keep the id
     }, [])
-
-    useEffect(() => {
-        console.log(allItems)
-        const featuredItems = allItems.filter(item => item.featured === true)
-        setFeaturedItems(featuredItems.slice(0, 4)) //set the featured to be the latest 4
-    }, [allItems])
-
 
     useEffect(() => {
         if(productId !== '') {
             async function getProductInfo() {
-                const product = await getProductFromDB() 
-                // console.log(items)
+                const product = await axios.get(`${SERVER_URL}/api/items/${productId}`)
+                                        .then(response => response.data)
                 setProduct(product)
             }
             getProductInfo()
         }
     }, [productId])
+
+    useEffect(() => { 
+        if(products.length !== 0) {
+          const featuredProducts = products.filter(product => product.featured === true)
+          setFeaturedProducts(featuredProducts.slice(0, 4)) //set FeaturedProductsAPI
+        }
+      }, [products])
+
 
     useEffect(() => {
         if(Object.keys(product).length !== 0) {
@@ -83,37 +80,18 @@ const Product = (props) => {
         }
     }, [product])
 
-    // useEffect(() => {
-    //     if(productImages.length !== 0) {
-    //         console.log('product imgs are: ', productImages)
-    //         const colorFirstImage = productImages.find(image => image.slice(30, -6) === cartColor)
-    //         setColorFirstImage(colorFirstImage)
-    //     }
-    // }, [productImages])
 
     useEffect(() => {
         let imageColorsArray = []
-        // let currentColor = []
-
-        // if(bigImage.length !== 0 && productColors.length !== 0) {
-        //     const firstColor = productImages.filter(image => image.slice(30, -6) == productColors[0])
-        //     setBigImage((firstColor[0]))
-        // }
 
         productColors.map((color) => {
         const currentColor = productImages.filter(image => image.slice(30, -6) === color)
             imageColorsArray.push(currentColor)
 
-            // if(currentColor.length !== 0) {
-            //     setBigImage(currentColor[0])
-            // }
-
             console.log("imageColorsArray: ", imageColorsArray)
         })
 
         setImageColorsArray(imageColorsArray)
-        // console.log(productImages)
-        // console.log(productColors)
 
     }, [productColors])
 
@@ -141,7 +119,6 @@ const Product = (props) => {
     useEffect(() => {
         async function getUserInfo() {
             const user = await getCurrentUser()
-            // setCurrentUser(user)
             setUserOwnerId(user._id)
         }
         getUserInfo()
@@ -151,13 +128,7 @@ const Product = (props) => {
         const request = axios.get(`${SERVER_URL}/api/users/me`, { headers })
                             .then(response => response.data)
         return request
-    }
-
-    const getProductFromDB = () => {
-        const request = axios.get(`${SERVER_URL}/api/items/${productId}`)
-                            .then(response => response.data)
-            return request
-    }
+    }   
 
 
     const colorsLinks = document.querySelectorAll(`.item-color`)
@@ -242,27 +213,19 @@ const Product = (props) => {
             return cartElement.productId === productId && cartElement.color === cartColor && cartElement.size === cartSize
         })
         if(repeatedElement) {
-            // console.log('the repeated element is: ', repeatedElement)
-            const editCartElementQuantity = await editQuantityOfCart()
-            setCart(prevCart => [...prevCart, editCartElementQuantity])
+            await editQuantityOfCart()
+            const updatedCart = await axios.get(`${SERVER_URL}/api/cart/getusercart/${userOwnerId}`, { headers })
+            setCart(updatedCart.data)
+            
         } else {
             const addNewCartToServer = await addNewToCart()
             setCart(prevCart => [...prevCart, addNewCartToServer])
         }
-        
-        // cart.map(async (cartElement) => {
-        //     (cartElement.productId === productId && cartElement.color === cartColor && cartElement.size === cartSize) ? (
-        //         console.log("Element is repeated")
-        //     ) : (
-        //         console.log('NOT REPEATED')
-        //         // await addNewToCart()
-        //         // console.log("added to cart: ", addNewCartToServer)
-        //         // setCart(prevCart => [...prevCart, addNewCartToServer])
-        //     )
-        // }) 
     }
 
     const updatedQuantity = {
+        color: cartColor,
+        size: cartSize,
         quantity
     }
 
@@ -321,7 +284,7 @@ const Product = (props) => {
     )
     
     const displayFeatured = () => (
-        featuredItems.map((item, i) => (
+        featuredProducts.map((item, i) => (
             <div className="col-4" key={i}>
                     <a href="" onClick={(e) => {
                         e.preventDefault()

@@ -11,22 +11,12 @@ import { SERVER_URL } from '../../config/config'
 const Cart = () => {
 
     const [subtotal, setSubtotal] = useState(0)
-    const [colorFirstImage, setColorFirstImage] = useState([])
 
     const headers = { Authorization: `Bearer ${Cookies.get('x_auth')}`}
 
     const { cart, setCart } = useContext(CartApi)
 
     const history = useHistory()
-
-    // useEffect(() => {
-    //     const colorFirstImage = cart.map(cartElement => cartElement.productImages.find(image => image.slice(30, -6) === cartElement.color))
-    //     setColorFirstImage(colorFirstImage)
-    // }, [])
-
-    // useEffect(() => {
-    //     console.log('the color first image is: ', colorFirstImage)
-    // },[colorFirstImage])
 
 
     useEffect(() => {

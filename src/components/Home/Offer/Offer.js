@@ -10,21 +10,11 @@ const Offer = () => {
 
     useEffect(() => {
         async function getOffer() {
-            const offer = await fetchOfferFromDB()
+            const offer = await axios.get(`${SERVER_URL}/api/exclusive`).then(response => response.data)
             setOffer(offer.reverse()) //get the latest offer in position [0]
         }
         getOffer()
     }, [])
-
-    useEffect(() => {
-        console.log(offer)
-    }, [offer])
-
-    const fetchOfferFromDB = () => {
-        const request = axios.get(`${SERVER_URL}/api/exclusive`)
-                            .then(response => response.data)
-            return request
-    }
 
 
     const renderOffer = () => (
